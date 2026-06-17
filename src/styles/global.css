@@ -228,6 +228,59 @@ main {
   margin: 2rem 0;
 }
 
+/* ---------- Image gallery rows ---------- */
+.img-row {
+  display: grid;
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.img-row.cols-2 {
+  grid-template-columns: 1fr 1fr;
+}
+.img-row.cols-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.img-row.cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+.img-row img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  display: block;
+}
+.img-row.single img {
+  max-height: 480px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.caption-en,
+.caption-zh {
+  margin: 0.3rem 0 1rem;
+  line-height: 1.6;
+}
+.caption-en {
+  color: var(--fg);
+  font-style: italic;
+}
+.caption-zh {
+  color: var(--fg-soft);
+}
+.lang-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 0.05rem 0.5rem;
+  border-radius: 999px;
+  margin-right: 0.4rem;
+  vertical-align: middle;
+  font-style: normal;
+}
+
 .post-nav {
   display: flex;
   justify-content: space-between;
