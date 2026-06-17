@@ -34,8 +34,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:image" content={new URL(pageImage, Astro.site)} />
     <meta property="og:url" content={canonicalURL} />
     <meta name="twitter:card" content="summary_large_image" />
-
-    <link rel="sitemap" href="/sitemap-index.xml" />
   </head>
   <body>
     <header class="site-header">
