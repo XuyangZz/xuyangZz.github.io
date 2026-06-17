@@ -1,0 +1,124 @@
+HOW TO DEPLOY xuyangZz.github.io
+=================================
+
+The blog code is ready in `D:\desktop\xuyangZz.github.io\`. You need to
+push it to GitHub once, then GitHub Actions will build and deploy it
+on every subsequent push.
+
+ONE-TIME SETUP (10 min)
+-----------------------
+
+1. Make sure you can log into GitHub as `xuyangZz`. The global git
+   config on this machine already points to that account.
+
+2. Open GitHub Desktop.
+
+3. File -> Add Local Repository -> choose
+   `D:\desktop\xuyangZz.github.io`.
+
+4. GitHub Desktop will detect the existing commits (from the `git init`
+   we did). Click the "Publish repository" button (top-right).
+   - Name: `xuyangZz.github.io`  (must match exactly, case-sensitive)
+   - Uncheck "Keep this code private" (Pages needs public)
+   - Click "Publish Repository"
+
+5. Open https://github.com/xuyangZz/xuyangZz.github.io in a browser.
+   Confirm the repo exists and the files (`.github/workflows/deploy.yml`,
+   `src/`, `package.json`, `README.md`, ...) are all there.
+
+6. Enable Pages with GitHub Actions:
+   - Repo -> Settings -> Pages
+   - Source: "GitHub Actions"  (NOT "Deploy from a branch")
+   - Save
+
+7. The first workflow run starts automatically. Watch it under the
+   "Actions" tab. When the green checkmark appears, your site is live
+   at: https://xuyangZz.github.io
+
+8. First-time Pages provisioning can take 1-2 minutes. If the URL
+   404s, wait and refresh. If it still 404s after 5 minutes, check
+   the Actions log for the error.
+
+LOCAL DEVELOPMENT (any time you want to preview)
+------------------------------------------------
+
+```bash
+cd D:\desktop\xuyangZz.github.io
+npm install            # only the first time
+npm run dev            # opens http://localhost:4321
+# edit content, hot-reloads
+# Ctrl+C to stop
+```
+
+WRITING A NEW POST
+------------------
+
+1. Create `src/content/blog/<slug>.mdx` (use kebab-case, no spaces).
+2. Use this template:
+
+   ```mdx
+   ---
+   title: "Your title here"
+   description: "One-sentence summary for the post list and SEO."
+   pubDatetime: 2026-06-20
+   tags: ["tag1", "tag2"]
+   ---
+
+   Body in Markdown. Use **bold**, *italic*, `code`, lists, and
+   `> blockquotes` freely. You can import components and write JSX
+   inside MDX if you want.
+   ```
+
+3. Save the file. The dev server hot-reloads.
+4. Commit + push to `main`. Actions rebuilds and deploys in ~1 min.
+
+ADDING THE CV BLOG LINKS TO OVERLEAF
+-------------------------------------
+
+The two `.tex` CV files in
+`D:\desktop\我的信息\All_Required_Documents_for_YFEL\` already have
+the blog links embedded. Just paste the updated content into your
+Overleaf project and recompile. After Pages is live, clicking the
+"Notes" / "读后感" link in the CV PDF will jump straight to the post.
+
+FILES IN THIS REPO
+------------------
+
+```
+.
+├── .github/workflows/deploy.yml   # GitHub Actions build + deploy
+├── .gitignore
+├── README.md
+├── astro.config.mjs               # site URL, integrations
+├── package.json
+├── public/
+│   ├── profile.jpg                # about-page photo
+│   └── robots.txt
+├── src/
+│   ├── config.ts                  # site title, nav, social
+│   ├── content/
+│   │   ├── about/about.md         # about page
+│   │   ├── blog/                  # posts (4 MDX files)
+│   │   └── config.ts              # content schema
+│   ├── layouts/BaseLayout.astro   # shared HTML shell
+│   ├── pages/
+│   │   ├── index.astro            # home (post list)
+│   │   ├── about.astro            # about page
+│   │   ├── posts/[...slug].astro  # post template
+│   │   └── rss.xml.ts             # RSS feed
+│   └── styles/global.css          # all CSS (no Tailwind)
+└── tsconfig.json
+```
+
+TROUBLESHOOTING
+---------------
+
+- npm install fails with "EACCES" or "EPERM": run the terminal as
+  Administrator, or use a non-system dir for the install.
+- 404 on first Pages visit: wait 2-3 min, hard-refresh (Ctrl+Shift+R).
+- Build fails in Actions with "Cannot find module 'astro'": `npm ci`
+  didn't run. Check the Actions log; sometimes the npm cache is
+  stale. Trigger a re-run from the Actions tab.
+- Custom domain: add a `CNAME` file in `public/` with your domain
+  (one line, no protocol). Configure DNS at your registrar. Then
+  Settings -> Pages -> Custom domain.

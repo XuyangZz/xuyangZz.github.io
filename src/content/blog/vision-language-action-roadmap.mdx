@@ -1,0 +1,67 @@
+---
+title: "What I Think VLA Systems Are Still Missing"
+description: My current reading of why vision-language-action models for robotics are not yet where they need to be, written in plain language for non-specialists and specialists alike.
+pubDatetime: 2025-07-10
+tags: ["research", "embodied-AI", "VLA", "robotics"]
+---
+
+This post is a friendlier version of the four research questions on my CV.
+I wrote it because every time I introduce my work to someone outside the
+field, I end up saying the same thing in the same order. Might as well
+write it down.
+
+## What a VLA model is, in one paragraph
+
+A **vision-language-action (VLA) model** is a single neural network that
+takes in images (vision), text instructions (language), and the robot's
+own state, and outputs the next motor command (action). The big idea is
+that you can train one model on a very large mix of robot data plus
+internet-scale image and text data, and then drop it onto a robot and
+expect it to *just work* on a new task described in plain English.
+
+The field has produced genuinely impressive demos in the last two years.
+It has also produced a lot of videos that look great and break the moment
+you change the lighting, the table, or the wording of the instruction.
+
+## The four things I think we still don't know
+
+I organised my own reading of the open problems into four questions. They
+roughly match the four bullets on my CV, but with more words.
+
+**1. How do we align vision, language, and action into one representation?**
+Current VLAs mostly bolt a vision-language model onto a robot policy. The
+representations are kind of aligned, kind of not. We don't yet have a clean
+theory for *what it means* for these three modalities to be aligned at the
+representation level, or how to measure it.
+
+**2. What is actually preventing embodied generalisation?**
+A model that works on 50 tasks in 3 labs does not necessarily generalise
+to the 51st task. We have a lot of *empirical* evidence for what breaks
+(new object, new lighting, new wording). We have very little
+*theoretical* understanding of why. Until we do, fixing each failure
+mode will keep being a craft, not a science.
+
+**3. How does a robot learn to reason, plan, and act in an open world?**
+Most VLAs today are reactive — they map observation to action, with very
+little in the way of explicit planning or world-modelling. The ones that
+do plan (via chain-of-thought, search, or world models) tend to be slow
+or fragile. I think the right way to think about this is: a useful
+embodied agent needs a *fast reactive policy* and a *slow deliberative
+planner*, and we don't yet know how to train them jointly.
+
+**4. What architectures actually bridge perception, cognition, and control?**
+This is the "give me a new architecture" question, and it's the one I
+spend the least time on, because the architecture usually follows from a
+clearer formulation of the problem. When we know what alignment and
+generalisation really mean, the architecture question gets a lot easier.
+
+## Why I think this is worth working on
+
+Robots that can do useful things in messy, human environments are one of
+the most direct ways that AI research can produce something that actually
+improves people's lives. Not by publishing a paper — by being in someone's
+kitchen and being helpful. I'd like to spend my career moving us a little
+closer to that.
+
+If you're working on any of these and want to compare notes, [my email is
+on the about page](/about).

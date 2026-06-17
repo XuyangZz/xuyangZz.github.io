@@ -1,0 +1,23 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../config';
+
+const aboutEntry = await getEntry('about', 'about');
+const { Content } = aboutEntry ? await aboutEntry.render() : { Content: null };
+---
+
+<BaseLayout
+  title="About"
+  description={`About ${SITE.author}`}
+>
+  <article class="prose about-page">
+    {aboutEntry && (
+      <h1>{aboutEntry.data.title}</h1>
+    )}
+    {aboutEntry?.data.description && (
+      <p class="subtitle">{aboutEntry.data.description}</p>
+    )}
+    <Content />
+  </article>
+</BaseLayout>
